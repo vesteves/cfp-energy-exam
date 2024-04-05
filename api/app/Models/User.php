@@ -18,8 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
+        'username',
+        'first_name',
+        'last_name',
+        'mobile',
+        'date_of_birth',
         'password',
     ];
 
@@ -41,5 +45,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'date_of_birth' => 'date',
     ];
+
+    /**
+     * The attributes that should be append.
+     *
+     * @var array<string, string>
+     */
+    protected $appends = [
+        'full_name'
+    ];
+
+    /**
+     * Append full_name to the User model.
+     * 
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
+    }
 }
