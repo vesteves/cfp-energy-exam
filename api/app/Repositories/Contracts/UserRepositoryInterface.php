@@ -50,4 +50,13 @@ interface UserRepositoryInterface
      * @return User | null User model or null.
      */
     public function getOne(int $id): User | null;
+
+    /**
+     * Delete an user by id.
+     * 
+     * @param int $id User id.
+     * 
+     * @return bool
+     */
+    public function delete(int $id): bool;
 }

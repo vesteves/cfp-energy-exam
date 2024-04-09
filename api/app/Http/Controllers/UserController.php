@@ -64,7 +64,7 @@ class UserController extends Controller
     /**
      * Get an user by id.
      * 
-     * @param GetUserRequest @request
+     * @param int @id
      *
      * @return \Illuminate\Http\JsonResponse
      *
@@ -132,6 +132,39 @@ class UserController extends Controller
             return ApiResponse::success($user, Response::HTTP_CREATED);
         } catch (\Exception $exception) {
             Log::error('User creation failed: ' . $exception->getMessage(), $request->validated());
+
+            return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Delete an user by id.
+     * 
+     * @param int @id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Delete(
+     *     path="/user/:id",
+     *     summary="Delete an user by id",
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @SWG\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
+    public function destroy(int $id)
+    {
+        try {
+            $user = $this->userService->delete($id);
+
+            return ApiResponse::success($user);
+        } catch (\Exception $exception) {
+            Log::error('Failed to delete user: ' . $exception->getMessage());
 
             return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }

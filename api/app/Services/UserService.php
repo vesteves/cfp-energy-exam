@@ -73,4 +73,16 @@ class UserService
     {
         return $this->userRepository->store($data);
     }
+
+    /**
+     * Delete an user by id.
+     * 
+     * @param int $id.
+     * 
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        return $this->userRepository->delete($id);
+    }
 }

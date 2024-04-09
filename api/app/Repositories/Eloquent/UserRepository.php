@@ -44,4 +44,12 @@ class UserRepository implements UserRepositoryInterface
     {
         return User::find($id);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete(int $id): bool
+    {
+        return !!User::destroy($id);
+    }
 }
