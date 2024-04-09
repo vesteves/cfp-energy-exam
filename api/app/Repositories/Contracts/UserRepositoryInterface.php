@@ -4,6 +4,8 @@ namespace App\Repositories\Contracts;
 
 use App\Models\User;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 interface UserRepositoryInterface
 {
     /**
@@ -21,4 +23,22 @@ interface UserRepositoryInterface
      * @return User The newly created user model.
      */
     public function store(array $params): User;
+
+    /**
+     * List users with pagination.
+     * 
+     * @param array $filters Filters of data to be filtered.
+     * @param string $filters['email'] Email address like.
+     * @param string $filters['username'] Username like.
+     * @param string $filters['first_name'] First name like.
+     * @param string $filters['last_name'] Last name like.
+     * @param string $filters['mobile'] Mobile number like.
+     * @param string $filters['date_of_birth_greater'] Date of birth (YYYY-MM-DD) greater than.
+     * @param string $filters['date_of_birth_less'] Date of birth (YYYY-MM-DD) less than.
+     * @param string $filters['created_at_greater'] Created at greater than.
+     * @param string $filters['created_at_less'] Created at less than.
+     * 
+     * @return LengthAwarePaginator A paginator instance containing User models.
+     */
+    public function getAll(array $filters): LengthAwarePaginator;
 }
