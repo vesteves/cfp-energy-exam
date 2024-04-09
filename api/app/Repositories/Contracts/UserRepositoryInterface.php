@@ -41,4 +41,13 @@ interface UserRepositoryInterface
      * @return LengthAwarePaginator A paginator instance containing User models.
      */
     public function getAll(array $filters): LengthAwarePaginator;
+
+    /**
+     * Get an user by id.
+     * 
+     * @param int $id User id.
+     * 
+     * @return User | null User model or null.
+     */
+    public function getOne(int $id): User | null;
 }

@@ -22,25 +22,6 @@ class UserService
     }
 
     /**
-     * Create a new user.
-     * 
-     * @param array $data User data.
-     * @param string $data['email'] Email address of the user.
-     * @param string $data['username'] Username for the user.
-     * @param string $data['first_name'] First name of the user.
-     * @param string $data['last_name'] Last name of the user.
-     * @param string $data['mobile'] Mobile number of the user.
-     * @param string $data['date_of_birth'] Date of birth of the user (YYYY-MM-DD).
-     * @param string $data['password'] Password for the user account.
-     * 
-     * @return User The newly created user model.
-     */
-    public function create(array $data): User
-    {
-        return $this->userRepository->store($data);
-    }
-
-    /**
      * List users with pagination.
      * 
      * @param array $filters Filters.
@@ -60,5 +41,36 @@ class UserService
     public function getAll($filters): LengthAwarePaginator
     {
         return $this->userRepository->getAll($filters);
+    }
+
+    /**
+     * Get an user by id.
+     * 
+     * @param int $id.
+     * 
+     * @return User | null User model or null.
+     */
+    public function getOne(int $id): User | null
+    {
+        return $this->userRepository->getOne($id);
+    }
+
+    /**
+     * Create a new user.
+     * 
+     * @param array $data User data.
+     * @param string $data['email'] Email address of the user.
+     * @param string $data['username'] Username for the user.
+     * @param string $data['first_name'] First name of the user.
+     * @param string $data['last_name'] Last name of the user.
+     * @param string $data['mobile'] Mobile number of the user.
+     * @param string $data['date_of_birth'] Date of birth of the user (YYYY-MM-DD).
+     * @param string $data['password'] Password for the user account.
+     * 
+     * @return User The newly created user model.
+     */
+    public function create(array $data): User
+    {
+        return $this->userRepository->store($data);
     }
 }

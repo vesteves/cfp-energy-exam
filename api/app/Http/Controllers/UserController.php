@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 
 use App\Helpers\ApiResponse;
 use App\Services\UserService;
+use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\ListUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 
@@ -55,6 +56,39 @@ class UserController extends Controller
             return ApiResponse::success($users);
         } catch (\Exception $exception) {
             Log::error('Failed to retrieve users: ' . $exception->getMessage());
+
+            return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Get an user by id.
+     * 
+     * @param GetUserRequest @request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Get(
+     *     path="/user/:id",
+     *     summary="Get an user by id",
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Successful operation",
+     *     ),
+     *     @SWG\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
+    public function show(int $id)
+    {
+        try {
+            $user = $this->userService->getOne($id);
+
+            return ApiResponse::success($user);
+        } catch (\Exception $exception) {
+            Log::error('Failed to retrieve user: ' . $exception->getMessage());
 
             return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }

@@ -36,4 +36,12 @@ class UserRepository implements UserRepositoryInterface
 
         return $query->paginate();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOne(int $id): User | null
+    {
+        return User::find($id);
+    }
 }
