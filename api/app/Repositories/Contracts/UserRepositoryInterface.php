@@ -59,4 +59,24 @@ interface UserRepositoryInterface
      * @return bool
      */
     public function delete(int $id): bool;
+
+    /**
+     * Update an existing user.
+     * 
+     * Updates an existing user based on their ID and the provided parameters. 
+     * Only the fields provided in the $params array will be updated.
+     *
+     * @param int $id The ID of the user to be updated.
+     * @param array $params Data for updating the user.
+     * @param string $params['email'] (optional) New email of the user.
+     * @param string $params['username'] (optional) New username of the user.
+     * @param string $params['first_name'] (optional) New first name of the user.
+     * @param string $params['last_name'] (optional) New last name of the user.
+     * @param string $params['mobile'] (optional) New mobile phone number of the user.
+     * @param string $params['date_of_birth'] (optional) New date of birth of the user (YYYY-MM-DD).
+     * @param string $params['password'] (optional) New password for the user.
+     * 
+     * @return User The updated User model.
+     */
+    public function update(int $id, array $params): User;
 }

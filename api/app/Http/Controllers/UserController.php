@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Log;
 
 use App\Helpers\ApiResponse;
 use App\Services\UserService;
-use App\Http\Requests\User\GetUserRequest;
 use App\Http\Requests\User\ListUserRequest;
 use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -132,6 +132,43 @@ class UserController extends Controller
             return ApiResponse::success($user, Response::HTTP_CREATED);
         } catch (\Exception $exception) {
             Log::error('User creation failed: ' . $exception->getMessage(), $request->validated());
+
+            return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Update an existing user.
+     * 
+     * @param UpdateUserRequest $request
+     * @param int $id User ID to update
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @SWG\Put(
+     *     path="/user/{id}",
+     *     summary="Update an existing user",
+     *     @SWG\Response(
+     *         response=200,
+     *         description="User updated successfully",
+     *     ),
+     *     @SWG\Response(
+     *         response=400,
+     *         description="Bad request"
+     *     ),
+     *     @SWG\Response(
+     *         response=500,
+     *         description="Server error"
+     *     )
+     * )
+     */
+    public function update(UpdateUserRequest $request, int $id)
+    {
+        try {
+            $user = $this->userService->update($id, $request->validated());
+
+            return ApiResponse::success($user);
+        } catch (\Exception $exception) {
+            Log::error('User update failed: ' . $exception->getMessage(), ['id' => $id]);
 
             return ApiResponse::error('An unexpected error occurred.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }

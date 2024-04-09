@@ -85,4 +85,27 @@ class UserService
     {
         return $this->userRepository->delete($id);
     }
+
+    /**
+     * Update an existing user.
+     * 
+     * @param int $id User id to be updated.
+     * @param array $data Data for updating the user.
+     * @param string $data['email'] (optional) New email of the user.
+     * @param string $data['username'] (optional) New username for the user.
+     * @param string $data['first_name'] (optional) New first name of the user.
+     * @param string $data['last_name'] (optional) New last name of the user.
+     * @param string $data['mobile'] (optional) New mobile number of the user.
+     * @param string $data['date_of_birth'] (optional) New date of birth (YYYY-MM-DD).
+     * @param string $data['password'] (optional) New password for the user.
+     * 
+     * @return User The updated user model.
+     */
+    public function update(int $id, array $data): User
+    {
+        if ($data['password']) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return $this->userRepository->update($id, $data);
+    }
 }

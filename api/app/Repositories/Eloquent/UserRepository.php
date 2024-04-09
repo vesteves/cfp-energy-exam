@@ -52,4 +52,14 @@ class UserRepository implements UserRepositoryInterface
     {
         return !!User::destroy($id);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function update(int $id, array $params): User
+    {
+        $user = User::findOrFail($id);
+        $user->update($params);
+        return $user;
+    }
 }
