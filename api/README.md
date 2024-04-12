@@ -11,3 +11,11 @@
 -   run `docker compose up -d` if the containers aren't up yet;
 
     PS: command to check the container statuses: `docker container ls`
+
+## Creating a clean architeture pattern:
+
+-   run `php artisan make:crud NAME`;
+
+## Testing
+
+-   run `php artisan test`;
