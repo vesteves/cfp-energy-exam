@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react';
 import * as S from './style';
 import { getUsers } from '@/services/users';
-import { Users } from '@/types/user';
+import { User } from '@/types/user';
 
 export const ListUser = () => {
-  const [users, setUsers] = useState<Users[] | []>([]);
+  const [users, setUsers] = useState<User[] | []>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchUsers = async () => {
@@ -60,3 +60,5 @@ export const ListUser = () => {
     </>
   );
 };
+
+export default ListUser;
