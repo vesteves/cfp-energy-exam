@@ -7,6 +7,8 @@ import {
   TableRow as TableRowMUI,
   TableCell as TableCellMUI,
   TableBody as TableBodyMUI,
+  Paper as PaperMUI,
+  CircularProgress as CircularProgressMUI,
 } from "@mui/material";
 import { TableContainerProps as TableContainerMUIProps } from "@mui/material/TableContainer";
 
@@ -23,3 +25,7 @@ export const TableRow = styled(TableRowMUI)``;
 export const TableCell = styled(TableCellMUI)``;
 
 export const TableBody = styled(TableBodyMUI)``;
+
+export const Paper = styled(PaperMUI)``;
+
+export const CircularProgress = styled(CircularProgressMUI)``;
