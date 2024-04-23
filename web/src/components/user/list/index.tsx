@@ -43,7 +43,9 @@ export const ListUser = ({ users }: { users: User[] | [] }) => {
                     <S.TableCell align="left">{row.username}</S.TableCell>
                     <S.TableCell align="left">{row.email}</S.TableCell>
                     <S.TableCell align="left">{row.mobile}</S.TableCell>
-                    <S.TableCell align="left">{row.date_of_birth}</S.TableCell>
+                    <S.TableCell align="left">
+                      {row.date_of_birth_human}
+                    </S.TableCell>
                     <S.TableCell align="center" size="medium">
                       <S.ActionWrapper>
                         <S.EditIcon

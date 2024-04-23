@@ -55,7 +55,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $appends = [
-        'full_name'
+        'full_name',
+        'date_of_birth_human'
     ];
 
     /**
@@ -66,6 +67,18 @@ class User extends Authenticatable
     public function getFullNameAttribute(): string
     {
         return ucfirst($this->first_name) . " " . ucfirst($this->last_name);
+    }
+
+    /**
+     * Append date_of_birth as human date to the User model.
+     * 
+     * @return string.
+     */
+    public function getDateOfBirthHumanAttribute()
+    {
+        if ($this->date_of_birth) {
+            return $this->date_of_birth->format('m/d/Y');
+        }
     }
 
     /**

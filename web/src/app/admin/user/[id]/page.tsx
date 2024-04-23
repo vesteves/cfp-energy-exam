@@ -15,6 +15,7 @@ export const EditUserPage = ({ params }: { params: { id: number } }) => {
     email: '',
     mobile: '',
     date_of_birth: '',
+    date_of_birth_human: '',
   };
   const [user, setUser] = useState<User>({ ...rawUser });
 

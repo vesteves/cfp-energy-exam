@@ -5,4 +5,5 @@ export interface User {
   email: string;
   mobile: string;
   date_of_birth: string;
+  date_of_birth_human: string;
 }
