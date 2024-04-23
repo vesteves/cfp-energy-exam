@@ -2,25 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import * as S from './style';
-import { getUsers } from '@/services/users';
 import { User } from '@/types/user';
 
-export const ListUser = () => {
-  const [users, setUsers] = useState<User[] | []>([]);
+export const ListUser = ({ users }: { users: User[] | [] }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchUsers = async () => {
-    setLoading(true);
-    const response = await getUsers();
-    if (response.data.success) {
-      setUsers(response.data.data.data);
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    setLoading(users ? false : true);
+  }, [users]);
 
   return (
     <>
