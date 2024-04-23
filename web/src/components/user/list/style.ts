@@ -11,6 +11,10 @@ import {
   CircularProgress as CircularProgressMUI,
 } from "@mui/material";
 import { TableContainerProps as TableContainerMUIProps } from "@mui/material/TableContainer";
+import { TableCellProps as TableCellMUIProps } from "@mui/material/TableCell";
+
+import EditIconMUI from '@mui/icons-material/Edit';
+import DeleteIconMUI from '@mui/icons-material/Delete';
 
 export const Container = styled(ContainerMUI)``;
 
@@ -22,10 +26,23 @@ export const TableHead = styled(TableHeadMUI)``;
 
 export const TableRow = styled(TableRowMUI)``;
 
-export const TableCell = styled(TableCellMUI)``;
+export const TableCell = styled(TableCellMUI) <TableCellMUIProps>``;
 
 export const TableBody = styled(TableBodyMUI)``;
 
 export const Paper = styled(PaperMUI)``;
 
 export const CircularProgress = styled(CircularProgressMUI)``;
+
+export const EditIcon = styled(EditIconMUI)`
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
+export const DeleteIcon = styled(DeleteIconMUI)`
+  cursor: pointer;
+`;
+
+export const ActionWrapper = styled.div`
+  display: flex;
+`;

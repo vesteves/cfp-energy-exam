@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import * as S from './style';
 import { User } from '@/types/user';
 
 export const ListUser = ({ users }: { users: User[] | [] }) => {
   const [loading, setLoading] = useState<boolean>(true);
+
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(users ? false : true);
@@ -20,10 +23,11 @@ export const ListUser = ({ users }: { users: User[] | [] }) => {
             <S.TableHead>
               <S.TableRow>
                 <S.TableCell>Fullname</S.TableCell>
-                <S.TableCell align="right">Username</S.TableCell>
-                <S.TableCell align="right">E-mail</S.TableCell>
-                <S.TableCell align="right">Mobile</S.TableCell>
-                <S.TableCell align="right">Date of Birth</S.TableCell>
+                <S.TableCell align="left">Username</S.TableCell>
+                <S.TableCell align="left">E-mail</S.TableCell>
+                <S.TableCell align="left">Mobile</S.TableCell>
+                <S.TableCell align="left">Date of Birth</S.TableCell>
+                <S.TableCell align="center">Actions</S.TableCell>
               </S.TableRow>
             </S.TableHead>
             <S.TableBody>
@@ -36,10 +40,18 @@ export const ListUser = ({ users }: { users: User[] | [] }) => {
                     <S.TableCell component="th" scope="row">
                       {row.username}
                     </S.TableCell>
-                    <S.TableCell align="right">{row.username}</S.TableCell>
-                    <S.TableCell align="right">{row.email}</S.TableCell>
-                    <S.TableCell align="right">{row.mobile}</S.TableCell>
-                    <S.TableCell align="right">{row.date_of_birth}</S.TableCell>
+                    <S.TableCell align="left">{row.username}</S.TableCell>
+                    <S.TableCell align="left">{row.email}</S.TableCell>
+                    <S.TableCell align="left">{row.mobile}</S.TableCell>
+                    <S.TableCell align="left">{row.date_of_birth}</S.TableCell>
+                    <S.TableCell align="center" size="medium">
+                      <S.ActionWrapper>
+                        <S.EditIcon
+                          onClick={() => router.push(`/admin/user/${row.id}`)}
+                        />
+                        <S.DeleteIcon />
+                      </S.ActionWrapper>
+                    </S.TableCell>
                   </S.TableRow>
                 ))}
             </S.TableBody>
