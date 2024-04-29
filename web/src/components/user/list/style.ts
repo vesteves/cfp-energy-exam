@@ -9,12 +9,14 @@ import {
   TableBody as TableBodyMUI,
   Paper as PaperMUI,
   CircularProgress as CircularProgressMUI,
+  Alert as AlertMUI,
 } from "@mui/material";
 import { TableContainerProps as TableContainerMUIProps } from "@mui/material/TableContainer";
 import { TableCellProps as TableCellMUIProps } from "@mui/material/TableCell";
 
 import EditIconMUI from '@mui/icons-material/Edit';
 import DeleteIconMUI from '@mui/icons-material/Delete';
+import CheckIconMUI from '@mui/icons-material/Check';
 
 export const Container = styled(ContainerMUI)``;
 
@@ -46,3 +48,9 @@ export const DeleteIcon = styled(DeleteIconMUI)`
 export const ActionWrapper = styled.div`
   display: flex;
 `;
+
+export const Alert = styled(AlertMUI)`
+  margin-bottom: 20px;
+`;
+
+export const CheckIcon = styled(CheckIconMUI)``;
