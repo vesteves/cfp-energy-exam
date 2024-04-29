@@ -20,8 +20,18 @@ export const updateUser = async (params: any) => {
       'Accept': 'application/json',
     },
     body: JSON.stringify(params),
-  })
-  const data = await res.json()
+  });
 
+  if (!res.ok) {
+    try {
+      const errorData = await res.json();
+      console.log('errorData', errorData)
+      throw new Error(errorData.error.message || 'Update failed. Please try again.');
+    } catch (jsonError) {
+      throw new Error('Update failed. Please try again.');
+    }
+  }
+
+  const data = await res.json();
   return data;
-}
+};

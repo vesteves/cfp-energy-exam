@@ -14,6 +14,7 @@ export const EditUser = ({ user }: { user: User }) => {
   });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -38,6 +39,7 @@ export const EditUser = ({ user }: { user: User }) => {
           return;
         }
       } catch (error: any) {
+        setErrorMessage(error.message);
         setShowErrorAlert(true);
         setTimeout(() => {
           setShowErrorAlert(false);
@@ -55,7 +57,7 @@ export const EditUser = ({ user }: { user: User }) => {
       )}
       {showErrorAlert && (
         <S.Alert icon={<S.CheckIcon fontSize="inherit" />} severity="error">
-          Error. Please review the info and try again later.
+          {errorMessage}
         </S.Alert>
       )}
       <S.FormWrapper>

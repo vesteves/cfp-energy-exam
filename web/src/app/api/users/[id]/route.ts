@@ -2,7 +2,7 @@ import { NextRequest } from "next/server"
 
 export async function GET(_: NextRequest, { params }: { params: { id: number } }) {
   const res = await fetch(`${process.env.API_URL}/api/users/${params.id}`, {
-    next: { revalidate: 60 },
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -18,6 +18,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: number }
 
   const res = await fetch(`${process.env.API_URL}/api/users/${params.id}`, {
     method: 'PUT',
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -25,11 +26,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: number }
     body: JSON.stringify(userData),
   })
 
-  if (res.ok) {
-    throw new Error('Failed to update user')
+  if (!res.ok) {
+    const errorData = await res.json();
+    throw new Error(errorData.error.message || 'Server error. Please try in a few minutes.');
   }
 
-  const data = await res.json()
+  const data = await res.json();
 
-  return Response.json({ data })
+  return Response.json({ data });
 }

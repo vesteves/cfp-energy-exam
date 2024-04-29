@@ -1,6 +1,6 @@
 export async function GET() {
   const res = await fetch(`${process.env.API_URL}/api/users`, {
-    next: { revalidate: 60 },
+    cache: 'no-store',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
