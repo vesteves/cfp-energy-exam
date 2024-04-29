@@ -24,7 +24,6 @@ class UpdateUserRequest extends FormRequest
             'last_name' => 'string|max:255',
             'mobile' => 'string|max:255',
             'date_of_birth' => 'date_format:Y-m-d',
-            'password' => 'string'
         ];
     }
 

@@ -14,10 +14,14 @@ import {
   FormHelperText as FormHelperTextMUI,
   Button as ButtonMUI,
   ButtonGroup as ButtonGroupMUI,
+  Alert as AlertMUI,
 } from "@mui/material";
+
 import { TableContainerProps as TableContainerMUIProps } from "@mui/material/TableContainer";
+
 import UndoIconMUI from '@mui/icons-material/Undo';
 import SaveIconMUI from '@mui/icons-material/Save';
+import CheckIconMUI from '@mui/icons-material/Check';
 
 export const UndoIcon = styled(UndoIconMUI)``;
 
@@ -61,3 +65,9 @@ export const InputLabel = styled(InputLabelMUI)``;
 export const Input = styled(InputMUI)``;
 
 export const FormHelperText = styled(FormHelperTextMUI)``;
+
+export const Alert = styled(AlertMUI)`
+  margin-bottom: 20px;
+`;
+
+export const CheckIcon = styled(CheckIconMUI)``;

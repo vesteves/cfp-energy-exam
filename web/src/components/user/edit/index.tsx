@@ -12,6 +12,8 @@ export const EditUser = ({ user }: { user: User }) => {
     ...user,
     date_of_birth: user.date_of_birth.split('T')[0],
   });
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const router = useRouter();
 
@@ -25,12 +27,37 @@ export const EditUser = ({ user }: { user: User }) => {
 
   const handleSubmit = async () => {
     if (formData.id) {
-      await updateUser(formData);
+      try {
+        const response = await updateUser(formData);
+
+        if (response.data.success) {
+          setShowSuccessAlert(true);
+          setTimeout(() => {
+            setShowSuccessAlert(false);
+          }, 5000);
+          return;
+        }
+      } catch (error: any) {
+        setShowErrorAlert(true);
+        setTimeout(() => {
+          setShowErrorAlert(false);
+        }, 5000);
+      }
     }
   };
 
   return (
     <>
+      {showSuccessAlert && (
+        <S.Alert icon={<S.CheckIcon fontSize="inherit" />} severity="success">
+          User updated.
+        </S.Alert>
+      )}
+      {showErrorAlert && (
+        <S.Alert icon={<S.CheckIcon fontSize="inherit" />} severity="error">
+          Error. Please review the info and try again later.
+        </S.Alert>
+      )}
       <S.FormWrapper>
         <S.FormControl>
           <S.InputLabel htmlFor="email">E-Mail</S.InputLabel>

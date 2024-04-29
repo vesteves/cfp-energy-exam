@@ -1,6 +1,6 @@
-import { NextApiRequest } from "next"
+import { NextRequest } from "next/server"
 
-export async function GET(_: NextApiRequest, { params }: { params: { id: number } }) {
+export async function GET(_: NextRequest, { params }: { params: { id: number } }) {
   const res = await fetch(`${process.env.API_URL}/api/users/${params.id}`, {
     next: { revalidate: 60 },
     headers: {
@@ -13,7 +13,7 @@ export async function GET(_: NextApiRequest, { params }: { params: { id: number 
   return Response.json({ data })
 }
 
-export async function PUT(req: Request, { params }: { params: { id: number } }) {
+export async function PUT(req: NextRequest, { params }: { params: { id: number } }) {
   const userData = await req.json()
 
   const res = await fetch(`${process.env.API_URL}/api/users/${params.id}`, {
@@ -25,7 +25,7 @@ export async function PUT(req: Request, { params }: { params: { id: number } }) 
     body: JSON.stringify(userData),
   })
 
-  if (!res.ok) {
+  if (res.ok) {
     throw new Error('Failed to update user')
   }
 
