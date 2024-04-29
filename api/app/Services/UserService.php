@@ -103,7 +103,7 @@ class UserService
      */
     public function update(int $id, array $data): User
     {
-        if ($data['password']) {
+        if (isset($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         }
         return $this->userRepository->update($id, $data);

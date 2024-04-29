@@ -11,3 +11,17 @@ export const getUser = async (id: number) => {
 
   return data;
 }
+
+export const updateUser = async (params: any) => {
+  const res = await fetch(`/api/users/${params.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(params),
+  })
+  const data = await res.json()
+
+  return data;
+}

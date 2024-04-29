@@ -18,13 +18,13 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user,
-            'username' => 'required|string|max:255|unique:users,username,' . $this->user,
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'mobile' => 'required|string|max:255',
-            'date_of_birth' => 'required|date_format:Y-m-d',
-            'password' => 'required|string'
+            'email' => 'string|email|max:255',
+            'username' => 'string|max:255',
+            'first_name' => 'string|max:255',
+            'last_name' => 'string|max:255',
+            'mobile' => 'string|max:255',
+            'date_of_birth' => 'date_format:Y-m-d',
+            'password' => 'string'
         ];
     }
 

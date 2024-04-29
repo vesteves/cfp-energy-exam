@@ -4,13 +4,14 @@ import { EditUser } from '@/components/user/edit';
 import { getUser } from '@/services/users';
 import { User } from '@/types/user';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import * as S from './style';
 
 export const EditUserPage = ({ params }: { params: { id: number } }) => {
   const rawUser = {
     id: null,
     full_name: '',
+    first_name: '',
+    last_name: '',
     username: '',
     email: '',
     mobile: '',
@@ -18,12 +19,13 @@ export const EditUserPage = ({ params }: { params: { id: number } }) => {
     date_of_birth_human: '',
   };
   const [user, setUser] = useState<User>({ ...rawUser });
-
-  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchUser = async (id: number) => {
+    setLoading(true);
     const response = await getUser(id);
     setUser(response.data.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -32,17 +34,8 @@ export const EditUserPage = ({ params }: { params: { id: number } }) => {
 
   return (
     <>
-      <EditUser user={user} />
-      <S.Footer>
-        <S.ButtonGroup variant="contained" aria-label="Basic button group">
-          <S.Button variant="contained" onClick={() => router.back()}>
-            <S.UndoIcon /> Back
-          </S.Button>
-          <S.Button variant="contained">
-            <S.SaveIcon /> Save
-          </S.Button>
-        </S.ButtonGroup>
-      </S.Footer>
+      {loading && <S.CircularProgress />}
+      {!loading && <EditUser user={user} />}
     </>
   );
 };
