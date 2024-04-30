@@ -8,4 +8,5 @@ export interface User {
   mobile: string;
   date_of_birth: string;
   date_of_birth_human: string;
+  password?: string;
 }

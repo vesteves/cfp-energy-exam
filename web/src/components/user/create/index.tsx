@@ -1,16 +1,15 @@
 'use client';
 
-import type { User } from '@/types/user';
 import { useRouter } from 'next/navigation';
 
 import * as S from './style';
 import { useState } from 'react';
-import { updateUser } from '@/services/users';
+import { createUser } from '@/services/users';
+import { rawUser } from '@/raws/user';
 
-export const EditUser = ({ user }: { user: User }) => {
+export const CreateUser = () => {
   const [formData, setFormData] = useState({
-    ...user,
-    date_of_birth: user.date_of_birth.split('T')[0],
+    ...rawUser,
   });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
@@ -27,24 +26,28 @@ export const EditUser = ({ user }: { user: User }) => {
     };
 
   const handleSubmit = async () => {
-    if (formData.id) {
-      try {
-        const response = await updateUser(formData);
+    try {
+      const response = await createUser(formData);
 
-        if (response.success) {
-          setShowSuccessAlert(true);
-          setTimeout(() => {
-            setShowSuccessAlert(false);
-          }, 5000);
-          return;
-        }
-      } catch (error: any) {
-        setErrorMessage(error.message);
-        setShowErrorAlert(true);
+      if (response.success) {
+        setShowSuccessAlert(true);
         setTimeout(() => {
-          setShowErrorAlert(false);
+          setShowSuccessAlert(false);
         }, 5000);
+        return;
       }
+
+      setErrorMessage(response.error.message);
+      setShowErrorAlert(true);
+      setTimeout(() => {
+        setShowErrorAlert(false);
+      }, 5000);
+    } catch (error: any) {
+      setErrorMessage(error.message);
+      setShowErrorAlert(true);
+      setTimeout(() => {
+        setShowErrorAlert(false);
+      }, 5000);
     }
   };
 
@@ -52,7 +55,7 @@ export const EditUser = ({ user }: { user: User }) => {
     <>
       {showSuccessAlert && (
         <S.Alert icon={<S.CheckIcon fontSize="inherit" />} severity="success">
-          User updated.
+          User created.
         </S.Alert>
       )}
       {showErrorAlert && (
@@ -74,6 +77,31 @@ export const EditUser = ({ user }: { user: User }) => {
           <S.FormHelperText id="email-helper">
             This e-mail will only be used for login.
           </S.FormHelperText>
+        </S.FormControl>
+      </S.FormWrapper>
+
+      <S.FormWrapper>
+        <S.FormControl>
+          <S.InputLabel htmlFor="password">Password</S.InputLabel>
+          <S.Input
+            id="password"
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange('password')}
+          />
+        </S.FormControl>
+      </S.FormWrapper>
+
+      <S.FormWrapper>
+        <S.FormControl>
+          <S.InputLabel htmlFor="username">Username</S.InputLabel>
+          <S.Input
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleChange('username')}
+          />
         </S.FormControl>
       </S.FormWrapper>
 
@@ -140,4 +168,4 @@ export const EditUser = ({ user }: { user: User }) => {
   );
 };
 
-export default EditUser;
+export default CreateUser;

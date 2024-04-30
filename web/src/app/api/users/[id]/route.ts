@@ -30,12 +30,17 @@ export async function PUT(req: NextRequest, { params }: { params: { id: number }
 
   if (!res.ok) {
     const errorData = await res.json();
+
+    if (res.status === 422) {
+      return new Response(JSON.stringify(errorData), { status: 422 });
+    }
+
     throw new Error(errorData.error.message || GENERIC_ERROR);
   }
 
   const data = await res.json();
 
-  return Response.json({ data });
+  return Response.json(data);
 }
 
 export async function DELETE(_: NextRequest, { params }: { params: { id: number } }) {
@@ -53,7 +58,6 @@ export async function DELETE(_: NextRequest, { params }: { params: { id: number 
   }
 
   const data = await res.json();
-  console.log('data', data)
 
   return Response.json({ data });
 }

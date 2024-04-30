@@ -25,7 +25,7 @@ export const updateUser = async (params: any) => {
   if (!res.ok) {
     try {
       const errorData = await res.json();
-      throw new Error(errorData.error.message || 'Update failed. Please try again.');
+      return errorData
     } catch (jsonError) {
       throw new Error('Update failed. Please try again.');
     }
@@ -43,3 +43,26 @@ export const deleteUser = async (id: number) => {
 
   return data;
 }
+
+export const createUser = async (params: any) => {
+  const res = await fetch('/api/users/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(params),
+  });
+
+  if (!res.ok) {
+    try {
+      const errorData = await res.json();
+      return errorData;
+    } catch (jsonError) {
+      throw new Error('Create failed. Please try again.');
+    }
+  }
+
+  const data = await res.json();
+  return data;
+};
